@@ -1,0 +1,142 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #111111;
+    color: white;
+}
+
+.center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* Navbar */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* background-color: #333; */
+  }
+
+ nav li {
+    float: right;
+  }
+
+ nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  /* Change the link color to #111 (black) on hover */
+ nav li a:hover {
+    text-decoration: underline;
+    /* background-color: #444; */
+  }
+
+  header {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .circle {
+    position: absolute;
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    filter: blur(1.5rem);
+  }
+
+  .red {
+    background-color: #A33232;
+    transform: translate(10px, 40px);
+  }
+
+  .blue {
+    background-color: #3281A3;
+    transform: translate(30px, -30px);
+  }
+
+  .green {
+    background-color: #32A374;
+    transform: translate(-40px, -10px);
+  }
+
+  button {
+    border: 2px solid white;
+    border-radius: 50px;
+    /* border-color: white; */
+    background-color: #111;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 14px 20px;
+	  margin: 2rem;
+	/* position: ; */
+  /* position: relative; */
+	/* width: 30%; */
+  }
+  .take-survey {
+    margin-top: 5rem;
+  }
+
+  .show-rating-form{
+    position: absolute;
+	  right: 0;
+    bottom: 0;
+	  /* transform: translateX(-50%); */
+  }
+
+  #ratingForm{
+    background-color: rebeccapurple;
+    display: none;
+  }
+  .rating {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,-50%) translateX(-8rem) rotateY(180deg);
+    display: flex;
+  }
+  .rating input {
+    display: none;
+  }
+  .rating label {
+    display: block;
+    width: 20rem;
+  }
+  .rating label::before {
+    content: '\f005';
+    font-family: FontAwesome;
+    --fa-style: 900;
+    position: relative;
+    display: block;
+    font-size: 4rem;
+    color: #1a1a1a;
+  }
+  .rating label::after {
+    content: '\f005';
+    font-family: FontAwesome;
+    --fa-style: 900;
+    position: absolute;
+    display: block;
+    font-size: 4rem;
+    color: yellow;
+    top: 0;
+    opacity: 0;
+    transition: .5s;
+  }
+  .rating label:hover:after,
+  .rating label:hover ~ label::after,
+  .rating input:checked ~ label:after {
+    opacity: 1;
+  }

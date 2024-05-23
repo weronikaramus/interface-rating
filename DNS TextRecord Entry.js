@@ -1,0 +1,4 @@
+DNS TextRecord Entry
+Name : s1._domainkey.thehotrockssauna.co.uk. 
+
+Value : v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDkfdzovS70WVCTRSYeCdsKoyzsZL9EJ/8/NXnI3Kp0p/QQ4NYj+1GtL3JOENseDjfYoTFkDdV5n1a4O/0dEC6oc5mZlqMSjYklWTDpzRiQQWUhfYqiURotyYLkuEWXc1J24ADmk2MhGgd3t2NWmDcD1lyvaO7z7JqGB1qE8YvPDQIDAQAB
