@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<nav>
+    <ul>
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</nav>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ form.name.label(class="form-label")}}
+        {{ form.name(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.url.label(class="form-label") }}
+        {{ form.url(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.category.label(class="form-label") }}
+        {{ form.category(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.type.label(class="form-label") }}
+        {{ form.type(class="form-control") }}
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}
+
+    <br>
+</form>
+
+{% for our_site in our_sites %}
+    {{ our_site.name }} - {{ our_site.url }}<br>
+{% endfor %}
+
+{% endblock %}
