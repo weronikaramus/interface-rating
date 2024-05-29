@@ -3,49 +3,68 @@
 {% endblock %}
 
 {% block body %}
-{# <h2>{{ website-name }}</h2> #}
-
-{# <div class="survey-screen"><img src="img/survey/{{ website-screen }}.jpg" alt=""></div> #}
-
-{# <div><button class="show-rating-button" >Oceń</button></div> #}
-<p>The name of this site is: {{ current_site.name }}</p>
-<p>{{ current_site.url }}</p>
+<div class="site-info">
+  {# <p>The name of this site is: {{ current_site.name }}</p> #}
+  <p><a href="{{ current_site.url }}" class="href">{{ current_site.name }}</a></p>
+</div>
 <button class="show-rating-form"onclick="showRatingForm()">Oceń</button>
 
+<img src="../static/img/{{ current_site.picture }}" class="site-picture" alt="">
 <div id="ratingForm">
 
-  <p>Pytanie 1</p>
+  {# {% if question %}
+
+    {% else %}
+    <p>No question available for this site</p>
+    {% endif %} #}
   <form class="rating-form">
     <div class="rating">
-      <input type="radio" name="star1" id="star1"><label for="star1"></label>
-      <input type="radio" name="star1" id="star2"><label for="star2"></label>
-      <input type="radio" name="star1" id="star3"><label for="star3"></label>
-      <input type="radio" name="star1" id="star4"><label for="star4"></label>
-      <input type="radio" name="star1" id="star5"><label for="star5"></label>
+      <p>Question 1: {{ question.q1 }}</p>
+      <div class="rating-stars">
+        <input type="radio" name="star1" id="star1"><label for="star1"></label>
+        <input type="radio" name="star1" id="star2"><label for="star2"></label>
+        <input type="radio" name="star1" id="star3"><label for="star3"></label>
+        <input type="radio" name="star1" id="star4"><label for="star4"></label>
+        <input type="radio" name="star1" id="star5"><label for="star5"></label>
+      </div>
     </div>
   </form>
 
-  <p>Pytanie 2</p>
+  {# {% if question %}
+    <p>Question 2: {{ question.q2 }}</p>
+    {% else %}
+    <p>No question available for this site</p>
+    {% endif %} #}
 
-  <form class="rating-form">
-    <div class="rating">
-      <input type="radio" name="star2" id="star6"><label for="star6"></label>
-      <input type="radio" name="star2" id="star7"><label for="star7"></label>
-      <input type="radio" name="star2" id="star8"><label for="star8"></label>
-      <input type="radio" name="star2" id="star9"><label for="star9"></label>
-      <input type="radio" name="star2" id="star10"><label for="star10"></label>
+    <form class="rating-form">
+      <div class="rating">
+        <p>Question 2: {{ question.q2 }}</p>
+        <div class="rating-stars">
+          <input type="radio" name="star2" id="star6"><label for="star6"></label>
+          <input type="radio" name="star2" id="star7"><label for="star7"></label>
+          <input type="radio" name="star2" id="star8"><label for="star8"></label>
+          <input type="radio" name="star2" id="star9"><label for="star9"></label>
+          <input type="radio" name="star2" id="star10"><label for="star10"></label>
+        </div>
     </div>
   </form>
 
-  <p>Pytanie 3</p>
+  {# {% if question %}
+    <p>Question 3: {{ question.q3 }}</p>
+    {% else %}
+    <p>No question available for this site</p>
+    {% endif %} #}
 
-  <form class="rating-form">
-    <div class="rating">
-      <input type="radio" name="star3" id="star11"><label for="star11"></label>
-      <input type="radio" name="star3" id="star12"><label for="star12"></label>
-      <input type="radio" name="star3" id="star13"><label for="star13"></label>
-      <input type="radio" name="star3" id="star14"><label for="star14"></label>
-      <input type="radio" name="star3" id="star15"><label for="star15"></label>
+    <form class="rating-form">
+      <div class="rating">
+        <p>Question 3: {{ question.q3 }}</p>
+        <div class="rating-stars">
+          <input type="radio" name="star3" id="star11"><label for="star11"></label>
+          <input type="radio" name="star3" id="star12"><label for="star12"></label>
+          <input type="radio" name="star3" id="star13"><label for="star13"></label>
+          <input type="radio" name="star3" id="star14"><label for="star14"></label>
+          <input type="radio" name="star3" id="star15"><label for="star15"></label>
+        </div>
     </div>
   </form>
 

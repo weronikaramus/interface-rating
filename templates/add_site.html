@@ -5,45 +5,42 @@
 {% endblock %}
 
 {% block body %}
-<nav>
-    <ul>
-        <li><a class="active" href="#home">Home</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
-    </ul>
-</nav>
-
-<form method="POST">
+<h2>Dodaj stronę</h2>
+<form action="/site/add" method="POST" enctype="multipart/form-data" class="site-form">
     {{ form.hidden_tag() }}
 
-    <div class="form-group">
+    {# <div class="form-group"> #}
         {{ form.name.label(class="form-label")}}
         {{ form.name(class="form-control") }}
-    </div>
+    {# </div> #}
 
-    <div class="form-group">
+    {# <div class="form-group"> #}
         {{ form.url.label(class="form-label") }}
         {{ form.url(class="form-control") }}
-    </div>
+    {# </div> #}
 
-    <div class="form-group">
+    {# <div class="form-group"> #}
         {{ form.category.label(class="form-label") }}
         {{ form.category(class="form-control") }}
-    </div>
+    {# </div> #}
 
-    <div class="form-group">
+    {# <div class="form-group"> #}
         {{ form.type.label(class="form-label") }}
         {{ form.type(class="form-control") }}
-    </div>
+    {# </div> #}
+
+    {# <div class="form-group"> #}
+        {{ form.picture.label(class="form-label") }}
+        {{ form.picture(class="form-control") }}
+    {# </div> #}
 
     {{ form.submit(class="btn btn-primary") }}
 
     <br>
 </form>
-
+<h3>Dodane strony:</h3>
 {% for our_site in our_sites %}
-    {{ our_site.name }} - {{ our_site.url }}<br>
+    <p>{{ our_site.name }} - {{ our_site.url }} - {{ our_site.type }} - {{ our_site.picture }}</p>
 {% endfor %}
 
 {% endblock %}

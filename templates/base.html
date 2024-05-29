@@ -7,6 +7,14 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a class="active" href="{{ url_for('index') }}">Strona główna</a></li>
+            {# <li><a href="{{ url_for('about') }}">O projekcie</a></li> #}
+            {# <li><a href="{{ url_for('contact') }}">Kontakt</a></li> #}
+            <li><a href=" {{ url_for('for_researchers') }}">Dla badaczy</a></li>
+          </ul>
+    </nav>
     {% block body %}
 
     {% endblock %}

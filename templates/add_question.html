@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<form action="/question/add" method="POST" enctype="multipart/form-data" class="question-form">
+    {{ form.hidden_tag() }}
+
+        {{ form.type.label(class="form-label")}}
+        {{ form.type(class="form-control") }}
+
+        {{ form.q1.label(class="form-label") }}
+        {{ form.q1(class="form-control") }}
+
+        {{ form.q2.label(class="form-label") }}
+        {{ form.q2(class="form-control") }}
+
+        {{ form.q3.label(class="form-label") }}
+        {{ form.q3(class="form-control") }}
+
+    {{ form.submit(class="btn btn-primary") }}
+
+    <br>
+</form>
+
+{% endblock %}
