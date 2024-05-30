@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<form action="/particular" method="POST" enctype="multipart/form-data" class="particulars-form">
+    {{ form.hidden_tag() }}
+
+        {{ form.gender.label(class="form-label")}}
+        {{ form.gender(class="form-control") }}
+
+        {{ form.age.label(class="form-label") }}
+        {{ form.age(class="form-control") }}
+
+        {{ form.residence.label(class="form-label") }}
+        {{ form.residence(class="form-control") }}
+
+        {{ form.education.label(class="form-label") }}
+        {{ form.education(class="form-control") }}
+
+        {{ form.occupation.label(class="form-label") }}
+        {{ form.occupation(class="form-control") }}
+
+    {{ form.submit(class="btn btn-primary") }}
+
+    <br>
+</form>
+
+{% endblock %}

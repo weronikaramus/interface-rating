@@ -1,7 +1,7 @@
 from flask import Flask, render_template, flash, session, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, RadioField
 from wtforms.validators import DataRequired
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
@@ -13,16 +13,18 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///study.db'
-app.config['UPLOAD_FOLDER'] = 'static/img'  # Ensure this folder exists
+app.config['UPLOAD_FOLDER'] = 'static/img'
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
 
 class SiteForm(FlaskForm):
     name = StringField("Nazwa: ", validators=[DataRequired()])
     url = StringField("URL: ", validators=[DataRequired()])
     category = StringField("Kategoria: ", validators=[DataRequired()])
     type = StringField("Typ: ", validators=[DataRequired()])
-    picture = FileField("Interfejs: ")  # Add this line
+    picture = FileField("Interfejs: ")
     submit = SubmitField("DODAJ")
 
 class Site(db.Model):
@@ -53,6 +55,25 @@ class Question(db.Model):
     def __repr__(self):
         return '<Type %r>' % self.type
 
+class ResponderForm(FlaskForm):
+    gender = RadioField(u'Płeć:', choices=[('female', 'Kobieta'), ('male','Mężczyzna'), ('nonbinary', 'Osoba niebinarna'), ('other', 'Inna/Wolę nie podawać')], validators=[DataRequired()])
+    age = RadioField(u"Wiek:", choices=[("under 18", "poniej 18"), ("18-26","18-26"), ("27-35", "27-35"), ("over 36", "powyżej 36")], validators=[DataRequired()])
+    residence = RadioField(u"Miejsce zamieszkania:", choices=[("village", "wieś"), ("under 50k","miasto do 50 tys."), ("50k - 150k", "miasto od 50 tys. do 150 tys."), ("150k - 500k", "miasto od 150 tys. do 500 tys."), ("over 500k", "miasto powyżej 500 tys.")], validators=[DataRequired()])
+    education = RadioField(u"Wykształcenie: ", choices=[("primary", "podstawowe"), ("secondary", "średnie"), ("proffesional", "zawodowe"), ("higher", "wyższe")], validators=[DataRequired()])
+    occupation = StringField("Zawód: ")
+    submit = SubmitField("ZAPISZ")
+
+class Responder(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    gender = db.Column(db.String(200), nullable=False)
+    age = db.Column(db.String(200), nullable=False)
+    residence = db.Column(db.String(200), nullable=False)
+    education = db.Column(db.String(200), nullable=False)
+    occupation = db.Column(db.String(200), nullable=True)
+
+    def __repr__(self):
+        return '<ID %r>' % self.id
+
 with app.app_context():
     db.create_all()
 
@@ -63,12 +84,20 @@ def index():
 @app.route('/survey')
 def survey():
     our_sites = Site.query.all()
-    session['current_site_index'] = session.get('current_site_index', -1) + 1
-    if session['current_site_index'] >= len(our_sites):
-        session['current_site_index'] = 0  # Reset to the beginning if we've gone past the last site
 
-    current_site = our_sites[session['current_site_index']]
+    if 'current_site_index' not in session:
+        session['current_site_index'] = 0
+
+    current_site_index = session['current_site_index']
+    if current_site_index >= len(our_sites):
+        return redirect(url_for('particular'))  # Redirect if the index is out of range
+
+    current_site = our_sites[current_site_index]
     question = Question.query.filter_by(type=current_site.type).first()
+
+    # Increment the index for the next visit
+    session['current_site_index'] += 1
+
     return render_template('survey.html', current_site=current_site, question=question)
 
 @app.route('/site/add', methods=['GET', 'POST'])
@@ -119,6 +148,25 @@ def add_question():
 
     our_questions = Question.query.order_by(Question.id)
     return render_template("add_question.html", form=form, our_questions=our_questions)
+
+@app.route('/particular', methods=['GET', 'POST'])
+def particular():
+    session['current_site_index'] = 0
+    form = ResponderForm()
+    if form.validate_on_submit():
+        responder = Responder.query
+        if responder is None:
+            responder = Responder(gender=form.gender.data, age=form.age.data, residence=form.residence.data, education=form.education.data, occupation=form.occupation.data)
+            db.session.add(responder)
+            db.session.commit()
+            flash("Thank you for your time!")
+        else:
+            flash("Oops, something went wrong!")
+
+        return redirect(url_for('particular'))
+
+    our_responders = Responder.query.order_by(Responder.id)
+    return render_template("respondents_particulars.html", form=form, our_responders=our_responders)
 
 @app.route('/for_researchers', methods=['GET', 'POST'])
 def for_researchers():

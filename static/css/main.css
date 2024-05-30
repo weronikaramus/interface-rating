@@ -20,8 +20,8 @@ p {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-/* Navbar */
 
+/* Navbar */
 nav ul {
     list-style-type: none;
     margin: 0.5rem;
@@ -45,9 +45,9 @@ nav li a {
 /* Change the link color to #111 (black) on hover */
 nav li a:hover {
   text-decoration: underline;
-  /* background-color: #444; */
 }
 
+/* Header */
 header {
   display: flex;
   justify-content: center;
@@ -85,27 +85,23 @@ header {
 button {
   border: 2px solid white;
   border-radius: 50px;
-  /* border-color: white; */
   background-color: #111;
   color: white;
   font-size: 20px;
   font-weight: bold;
   padding: 14px 20px;
   margin: 2rem;
-/* position: ; */
-/* position: relative; */
-/* width: 30%; */
 }
 .take-survey {
   margin-top: 5rem;
 }
 
+/* Rating */
 .show-rating-form{
   position: absolute;
   right: 0;
   bottom: 0;
   z-index: 5;
-  /* transform: translateX(-50%); */
   position: fixed;
 }
 
@@ -171,6 +167,14 @@ button {
   opacity: 1;
 }
 
+.confirm-rate{
+  text-align: center;
+}
+.confirm-rate button {
+  background-color: #3281A3;
+  color: #fff;
+  opacity: 1;
+}
 .site-picture{
   width: 100vw;
   z-index:-5;
@@ -198,15 +202,12 @@ button {
   color: #9370DB;
 }
 
-
-
-
-
+/* Forms */
 form {
 	padding: 0 20px 20px;
 }
 
-.site-form, .question-form {
+.site-form, .question-form, .particulars-form {
 	position: relative;
 	margin-bottom: 1rem;
 	padding-bottom: 1rem;
@@ -232,7 +233,20 @@ form {
   margin-bottom: 2rem;
 }
 
-.site-form .btn, .question-form .btn {
+.particulars-form {
+  border: solid 2px white;
+	border-radius: 45px;
+  padding: 2rem 2rem 4rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  list-style-type: none;
+}
+
+.particulars-form ul {
+  list-style-type: none;
+}
+
+.site-form .btn, .question-form .btn, .particulars-form .btn {
 	background-color: #bd4f6c;
 	border: none;
 	border-radius: 45px;
