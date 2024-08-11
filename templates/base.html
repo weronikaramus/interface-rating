@@ -4,21 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="https://kit.fontawesome.com/01c2d9fa8e.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
     {% block head %}{% endblock %}
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 </head>
 <body>
     <nav>
-        <ul>
-            <li><a class="active" href="{{ url_for('index') }}">Strona główna</a></li>
-            {# <li><a href="{{ url_for('about') }}">O projekcie</a></li> #}
-            {# <li><a href="{{ url_for('contact') }}">Kontakt</a></li> #}
-            <li><a href=" {{ url_for('for_researchers') }}">Dla badaczy</a></li>
+        <ul class="menu-items">
+            <li><a class="{{ home }}" href="{{ url_for('index') }}">Strona główna</a></li>
+            <li><a class="{{ about }}" href="{{ url_for('about') }}">O projekcie</a></li>
+            <li><a class="{{ for_researchers }}" href=" {{ url_for('for_researchers') }}">Dla badaczy</a></li>
           </ul>
+  </a>
     </nav>
     {% block body %}
 
     {% endblock %}
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script src="https://kit.fontawesome.com/01c2d9fa8e.js" crossorigin="anonymous"></script>
+
 </body>
 </html>

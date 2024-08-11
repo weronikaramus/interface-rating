@@ -8,6 +8,7 @@
 
 <form action="/particular" method="POST" enctype="multipart/form-data" class="particulars-form">
     {{ form.hidden_tag() }}
+    <h3>Podaj swoje dane</h3>
 
         {{ form.gender.label(class="form-label")}}
         {{ form.gender(class="form-control") }}
@@ -24,6 +25,7 @@
         {{ form.occupation.label(class="form-label") }}
         {{ form.occupation(class="form-control") }}
 
+        <p><strong>Przesyłając formularz wyrażasz zgodę na udział w badaniu</strong></p>
     {{ form.submit(class="btn btn-primary") }}
 
     <br>

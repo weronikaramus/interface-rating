@@ -6,7 +6,21 @@
 
 {% block body %}
 
-<a href="{{ url_for('add_site') }}">Add site</a>
-<a href="{{ url_for('add_question') }}">Add questions</a>
+{% if not logged %}
+    <h2>Podaj hasło dostępu</h2>
+    <form class="password" action="/for_researchers" method="post">
+        <input type="password" name="password" id="password">
+        <button type="submit">WEJDŹ</button>
+    </form>
+{% else %}
+
+    <h2>Co chcesz zrobić?</h2>
+    <div class="center">
+        <a href="{{ url_for('add_site') }}" class="btn go-to">Dodaj interfejs</a>
+        <a href="{{ url_for('add_question') }}" class="btn go-to">Dodaj kryteria</a>
+        <a href="{{ url_for('responses') }}" class="btn go-to">Odpowiedzi</a>
+    </div>
+
+{% endif %}
 
 {% endblock %}

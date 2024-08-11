@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-
+<h2>Dodaj kryteria</h2>
 <form action="/question/add" method="POST" enctype="multipart/form-data" class="question-form">
     {{ form.hidden_tag() }}
 
@@ -25,5 +25,9 @@
 
     <br>
 </form>
+
+{% for person in persons %}
+    <p>{{ person.gender }} - {{ person.age }}</p>
+{% endfor %}
 
 {% endblock %}
