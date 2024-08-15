@@ -25,9 +25,14 @@
 
     <br>
 </form>
-
-{% for person in persons %}
-    <p>{{ person.gender }} - {{ person.age }}</p>
+<ul>
+{% for our_question in our_questions %}
+    <li>{{ our_question.type }} <form action="{{ url_for('delete_question', question_type=our_question.type) }}" method="post" style="display:inline;">
+        <button type="submit" class="btn-delete">Usuń</button>
+    </form></li>
+    <p>{{ our_question.q1 }}</p>
+    <p>{{ our_question.q2 }}</p>
+    <p>{{ our_question.q3 }}</p>
 {% endfor %}
-
+</ul>
 {% endblock %}

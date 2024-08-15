@@ -15,9 +15,6 @@
         {{ form.url.label(class="form-label") }}
         {{ form.url(class="form-control") }}
 
-        {{ form.category.label(class="form-label") }}
-        {{ form.category(class="form-control") }}
-
         {{ form.type.label(class="form-label") }}
         {{ form.type(class="form-control") }}
 
@@ -29,8 +26,14 @@
     <br>
 </form>
 <h3>Dodane strony:</h3>
-{% for our_site in our_sites %}
-    <p>{{ our_site.name }} - {{ our_site.url }} - {{ our_site.type }} - {{ our_site.picture }}</p>
-{% endfor %}
 
+<ul>
+{% for our_site in our_sites %}
+    <li>{{ our_site.name }} - {{ our_site.url }} - {{ our_site.type }}
+        <form action="{{ url_for('delete_site', site_url=our_site.url) }}" method="post" style="display:inline;">
+            <button type="submit" class="btn-delete">Usuń</button>
+        </form>
+    </li>
+{% endfor %}
+</ul>
 {% endblock %}

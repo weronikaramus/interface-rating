@@ -124,6 +124,13 @@ button:hover, .btn:hover {
 	transition-duration: 0.5s;
 	cursor: pointer;
 }
+
+.btn-delete {
+	color: red;
+	size: 12px;
+	border: none;
+	background-color: none;
+}
 .take-survey {
 	margin-top: 6rem;
 }

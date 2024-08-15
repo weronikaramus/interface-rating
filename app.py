@@ -24,7 +24,6 @@ PASSWORD = "BadanieUI2024"
 class SiteForm(FlaskForm):
     name = StringField("Nazwa: ", validators=[DataRequired()])
     url = StringField("URL: ", validators=[DataRequired()])
-    category = StringField("Kategoria: ", validators=[DataRequired()])
     type = StringField("Typ: ", validators=[DataRequired()])
     picture = FileField("Interfejs: ")
     submit = SubmitField("DODAJ")
@@ -33,7 +32,6 @@ class Site(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     url = db.Column(db.String(200), nullable=False, unique=True)
-    category = db.Column(db.String(200), nullable=False)
     type = db.Column(db.String(200), nullable=False)
     picture = db.Column(db.String(200), nullable=True)
 
@@ -190,7 +188,6 @@ def add_site():
             site = Site(
                 name=form.name.data,
                 url=form.url.data,
-                category=form.category.data,
                 type=form.type.data,
                 picture=pic_filename
             )
@@ -203,6 +200,37 @@ def add_site():
 
     our_sites = Site.query.order_by(Site.id)
     return render_template("add_site.html", form=form, our_sites=our_sites)
+
+@app.route('/site/delete/<string:site_url>', methods=['POST'])
+def delete_site(site_url):
+    if is_not_logged():
+        return redirect(url_for('index'))
+
+    # Znajdź stronę na podstawie adresu URL
+    site = Site.query.filter_by(url=site_url).first()
+
+    if site is None:
+        flash('Strona nie została znaleziona.')
+        return redirect(url_for('add_site'))
+
+    # Usuń powiązane oceny
+    ratings = Rating.query.filter_by(site_id=site.id).all()
+    for rating in ratings:
+        db.session.delete(rating)
+
+    # Usuń powiązane obrazy, jeśli istnieją
+    if site.picture:
+        picture_path = os.path.join(app.config['UPLOAD_FOLDER'], site.picture)
+        if os.path.exists(picture_path):
+            os.remove(picture_path)
+
+    # Usuń stronę z bazy danych
+    db.session.delete(site)
+    db.session.commit()
+
+    flash('Strona oraz powiązane oceny zostały usunięte.')
+    return redirect(url_for('add_site'))
+
 
 @app.route('/question/add', methods=['GET', 'POST'])
 def add_question():
@@ -227,6 +255,27 @@ def add_question():
     persons = Responder.query.order_by(Responder.id)
 
     return render_template("add_question.html", form=form, our_questions=our_questions, persons=persons)
+
+@app.route('/question/delete/<string:question_type>', methods=['POST'])
+def delete_question(question_type):
+    if is_not_logged():
+        return redirect(url_for('index'))
+
+    # Znajdź pytanie na podstawie typu
+    question = Question.query.filter_by(type=question_type).first()
+
+    if question is None:
+        flash('Pytanie o podanym typie nie zostało znalezione.')
+        return redirect(url_for('add_question'))
+
+    # Usuń pytanie z bazy danych
+    db.session.delete(question)
+    db.session.commit()
+
+    flash('Pytanie zostało usunięte.')
+    return redirect(url_for('add_question'))
+
+
 
 @app.route('/particular', methods=['GET', 'POST'])
 def particular():
