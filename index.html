@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<header>
+    <div>
+        <div class="circle red"></div>
+        <div class="circle blue"></div>
+        <div class="circle green"></div>
+    </div>
+    <h1>Ocena czytelności interfejsów</h1>
+</header>
+<form class="center take-survey" action="{{ url_for('particular') }}"><button type="submit">Weź udział</button></form>
+    {% if error %}
+        <p class=error><strong>Error:</strong> {{ error }}
+    {% endif %}
+
+{% endblock %}
